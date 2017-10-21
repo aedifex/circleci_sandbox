@@ -5,7 +5,7 @@ defaults: &defaults
   # Current working directory, may change depending on best practices set by microservice platform team
   working_directory: /tmp/storefront
   docker:
-      - image: golang
+      - image: node:latest
       
 version: 2
 
