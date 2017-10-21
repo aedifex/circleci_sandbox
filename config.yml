@@ -1,0 +1,129 @@
+# Ref: https://circleci.com/docs/2.0/
+
+# Default used for all jobs
+defaults: &defaults
+  # Current working directory, may change depending on best practices set by microservice platform team
+  working_directory: /tmp/storefront
+  docker:
+      - image: golang
+      
+version: 2
+
+# List of jobs that we need to run
+# Things to be added: automation testing step, integration testing
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Install application
+          command: npm install
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory
+          root: /tmp/storefront
+          # Must be relative path from root
+          paths:
+            - .
+
+  linting:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /tmp/storefront
+      - run:
+          name: Run Linting
+          command: npm run lint
+  
+  unit-test:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /tmp/storefront
+      - run:
+          name: Run Unit Test
+          command: npm run test
+
+  code-coverage:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /tmp/storefront
+      - run:
+          name: Run Test Coverage
+          command: npm run coverage
+      - store_artifacts:
+          path: /tmp/storefront/coverage/lcov-report
+          destination: index
+
+  deploy-to-staging:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /tmp/storefront
+      - setup_remote_docker      
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              chmod +x ./deploy/staging.sh
+              ./deploy/staging.sh
+            fi
+            echo "Hello"
+  
+  deploy-to-prod:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /tmp/storefront
+      - setup_remote_docker
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "production" ]; then
+              chmod +x ./deploy/production.sh
+              ./deploy/production.sh
+            fi
+  
+
+# The workflow the project follows, will change as we add more jobs
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - build
+      - linting:
+          requires:
+            - build
+      - unit-test:
+          requires:
+            - build
+      - code-coverage:
+          requires:
+            - build
+      - deploy-to-staging:
+          filters:
+            branches:
+              only: staging
+          requires:
+            - unit-test
+            - linting
+            - code-coverage
+      # - unit-test:
+      #     requires:
+      #      - deploy-to-staging
+      #     filters:
+      #       branches:
+      #         only: staging
+      - hold:
+          type: approval
+          filters:
+              branches:
+                only: 
+                  - production
+          requires:
+            - deploy-to-staging
+      - deploy-to-prod:
+          requires:
+            - hold
+          filters:
+            branches:
+              only: production
