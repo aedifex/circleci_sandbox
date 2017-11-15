@@ -12,7 +12,7 @@ jobs:
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+      - image: golang:1.7
 
     #### TEMPLATE_NOTE: go expects specific checkout path representing url
     #### expecting it in the form of
@@ -21,7 +21,7 @@ jobs:
     # working_directory: /go/src/github.com/CharlesBlack89/GildedRoseGolang
     steps:
       - checkout
-      - run: echo "hello from vault!"
+      - run: env
 
     # specify any bash command here prefixed with `run: `
      #  - run: go test -v
