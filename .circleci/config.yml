@@ -1,17 +1,9 @@
-version: 2
+version: 2.0
 jobs:
-   build:
-     docker:
-       - image: circleci/node:8.0
-     steps:
-       - checkout
-       - run: echo "hello world"
-       - run:
-          name: Install AWSCLI
-          command: |
-            sudo apt-get -y -qq update
-            sudo apt-get -y -qq install python3.4-dev
-            wget https://bootstrap.pypa.io/get-pip.py
-            python3.4 get-pip.py --user
-            pip install awscli --upgrade --user
-            export PATH=$PATH:$HOME/local/bin
+  build:
+    docker:
+      - image: clojure:alpine
+      - image: postgres:9.6
+        environment:
+          POSTGRES_USER: username
+          POSTGRES_DB: db
