@@ -7,3 +7,5 @@ jobs:
         environment:
           POSTGRES_USER: username
           POSTGRES_DB: db
+    steps:
+      - run: echo "ave mundus!"
