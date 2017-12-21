@@ -1,11 +1,51 @@
-version: 2.0
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+general:
+  branches:
+    only:
+      - circleci # only build circleci branch
+
+version: 2
 jobs:
   build:
     docker:
-      - image: clojure:alpine
-      - image: postgres:9.6
-        environment:
-          POSTGRES_USER: username
-          POSTGRES_DB: db
+      # specify the version you desire here
+      - image: circleci/openjdk:8-jdk
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+      # - image: circleci/mysql:5.6
+      #   environment:
+      #     - MYSQL_DATABASE=testdb
+      #     - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      #     - MYSQL_HOST=127.0.0.1
+      #     - MYSQL_ROOT_HOST=%
+      #     - MYSQL_USER=root
+      # - image: selenium/standalone-chrome:latest
+
+    working_directory: ~/abc
+    
     steps:
-      - run: echo "ave mundus!"
+      - checkout
+
+      - setup_remote_docker:   # (2)
+          docker_layer_caching: true # (3)
+
+      - run:
+          name: Install Docker client
+          command: |
+            set -x
+            VER="17.03.0-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            sudo mv /tmp/docker/* /usr/bin
+
+      - run:
+          name: Start MySQL Container
+          command: |
+            docker pull mysql:5.6.34
+            docker run --name mysqlcontainer -e MYSQL_ROOT_PASSWORD=abcd1234 -e MYSQL_DATABASE=testdb -p 3306:3306 -d mysql:5.6.34
