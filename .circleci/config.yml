@@ -10,6 +10,9 @@ jobs:
     parallelism: 4
     steps:
       - checkout
+    environment:
+      - FOO: "bar"
+
 
 
       - run:
@@ -22,4 +25,5 @@ jobs:
           name: Run tests
           command: |
             echo ${TESTFILES}
+            echo ${FOO}
 
