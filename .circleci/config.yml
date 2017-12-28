@@ -9,7 +9,7 @@ jobs:
     machine: true
     parallelism: 4
     environment:
-      - TESTFILES: 
+      - TESTFILES: $whoami
     parallelism: 4
     steps:
       - checkout
@@ -17,7 +17,6 @@ jobs:
       - run:
           name: test
           command:
-            TESTFILES=$(whoami)
             echo ${TESTFILES}
 
 
