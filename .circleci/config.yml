@@ -7,11 +7,12 @@ version: 2
 jobs:
   build:
     machine: true
+    environment:
+      - FOO: "bar"
     parallelism: 4
     steps:
       - checkout
-    environment:
-      - FOO: "bar"
+    
 
 
 
