@@ -7,24 +7,22 @@ version: 2
 jobs:
   build:
     machine: true
+    parallelism: 4
     environment:
-      - FOO: "bar"
+      - TESTFILES: $(whoami)
     parallelism: 4
     steps:
       - checkout
-    
-
-
 
       - run:
-          name: Split tests
-          command: |
-            TESTFILES=$(whoami)
+          name: test
+          command:
+            echo ${TESTFILES}
+
 
       # run tests!
-      - run:
-          name: Run tests
-          command: |
-            echo ${TESTFILES}
-            echo ${FOO}
+      #- run: 
+      #    name: Run tests
+      #    command: |
+      #      mvn -f rest/pom.xml -P common,stand-alone -Dtest=${TESTFILES} -e test
 
