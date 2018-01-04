@@ -15,6 +15,7 @@ jobs:
   test-acceptance:
     docker:
       - image: circleci/golang:1.8
+    steps:
 
 workflows:
   version: 2
