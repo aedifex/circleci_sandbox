@@ -5,13 +5,15 @@ jobs:
        - image: circleci/golang:1.8
      steps:
        - checkout
-       - run: echo "hello world" > sayHi.txt
-       - run: pwd
+       # - run: echo "hello world" > sayHi.txt
+       # - run: pwd
 
        # retrive a simple cached file
        - restore_cache:
            keys:
             - first-cache
+
+       - run: cat /home/circleci/project/sayHi.txt
 
        - save_cache:
            key: first-cache
