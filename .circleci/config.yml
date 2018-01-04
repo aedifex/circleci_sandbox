@@ -7,3 +7,14 @@ jobs:
        - checkout
        - run: echo "hello world" > sayHi.txt
        - run: pwd
+
+       # retrive a simple cached file
+       - restore_cache:
+           keys:
+            - first-cache
+
+       - save_cache:
+           key:
+            - first-cache
+           paths:
+            - /home/circleci/project
