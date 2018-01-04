@@ -9,7 +9,7 @@ jobs:
     machine: true
     parallelism: 4
     environment:
-      - TESTFILES: $whoami
+      - TESTFILES: < $whoami
     parallelism: 4
     steps:
       - checkout
