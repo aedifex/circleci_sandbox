@@ -5,4 +5,5 @@ jobs:
        - image: circleci/golang:1.8
      steps:
        - checkout
-       - run: echo "hello world"
+       - run: echo "hello world" > sayHi.txt
+       - run: pwd
