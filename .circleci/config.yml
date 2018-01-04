@@ -31,5 +31,10 @@ workflows:
       - test:
           requires:
             - build
-      - test-acceptance
-      - deploy-prod
+      - test-acceptance:
+          requires:
+            - build
+      - deploy-prod:
+          requires:
+            - test
+            - test-acceptance
