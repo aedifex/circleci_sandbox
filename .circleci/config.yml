@@ -14,7 +14,6 @@ jobs:
             - first-cache
 
        - save_cache:
-           key:
-            - first-cache
+           key: first-cache
            paths:
             - /home/circleci/project
