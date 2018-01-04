@@ -29,12 +29,5 @@ workflows:
     jobs:
       - build
       - test
-          requires:
-            - build
       - test-acceptance
-          requires:
-            - build
-      - deploy-prod:
-          requires:
-            - test
-            - test-acceptance
+      - deploy-prod
