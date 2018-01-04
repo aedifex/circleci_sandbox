@@ -1,34 +1,8 @@
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
-
 version: 2
 jobs:
-  build:
-    machine: true
-    
-    steps:
-      - checkout
-
-      - run:
-          name: sayhi
-          command:
-            - echo "Greetings and salutations" > /tmp.txt
-
-      - restore_cache:
-          keys: 
-            - first_cache
-
-      - save_cache:
-          key: first_cache
-          paths:
-            - /
-
-
-      # run tests!
-      #- run: 
-      #    name: Run tests
-      #    command: |
-      #      mvn -f rest/pom.xml -P common,stand-alone -Dtest=${TESTFILES} -e test
-
+   build:
+     docker:
+       - image: circleci/golang:1.8
+     steps:
+       - checkout
+       - run: echo "hello world"
