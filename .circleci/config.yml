@@ -29,7 +29,7 @@ workflows:
     jobs:
       - build
       - test
-        requires:
-          - build
+          requires:
+            - build
       - test-acceptance
       - deploy-prod
