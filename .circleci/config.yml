@@ -12,10 +12,14 @@ jobs:
     steps:
       - checkout
       - run: echo "Hello, from test!"
+  test-acceptance:
+    docker:
+      - image: circleci/golang:1.8
+
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
       - test
-
+      - test-acceptance
