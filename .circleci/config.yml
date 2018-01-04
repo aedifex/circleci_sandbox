@@ -1,21 +1,21 @@
 version: 2
 jobs:
-   build:
-     docker:
-       - image: circleci/golang:1.8
-     steps:
-       - checkout
-       # - run: echo "hello world" > sayHi.txt
-       # - run: pwd
+  build:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - checkout
+      - run: echo "Hello, from build!"
+  test:
+    docker:
+      - image: circleci/circleci/golang:1.8
+    steps:
+      - checkout
+      - run: echo "Hello, from test!"
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
 
-       # retrive a simple cached file
-       - restore_cache:
-           keys:
-            - first-cache
-
-       - run: cat /home/circleci/project/sayHi.txt
-
-       - save_cache:
-           key: first-cache
-           paths:
-            - /home/circleci/project
