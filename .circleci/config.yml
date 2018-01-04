@@ -16,6 +16,7 @@ jobs:
     docker:
       - image: circleci/golang:1.8
     steps:
+      - run: echo "Hi, from acceptance!"
 
 workflows:
   version: 2
