@@ -8,7 +8,7 @@ jobs:
       - run: echo "Hello, from build!"
   test:
     docker:
-      - image: circleci/circleci/golang:1.8
+      - image: circleci/golang:1.8
     steps:
       - checkout
       - run: echo "Hello, from test!"
