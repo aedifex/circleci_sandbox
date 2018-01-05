@@ -19,7 +19,7 @@ workflows:
     # triggers sub WF nomen
     triggers:
       - schedule:
-          cron: "* * * * *"
+          cron: "0 1 * * *"
     jobs:
       - build
       - test
