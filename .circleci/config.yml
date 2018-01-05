@@ -11,7 +11,7 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - checkout
-      - run: echo "Hello, from test!"
+      - run: echo $AWS_CREDS
 
 workflows:
   version: 2
