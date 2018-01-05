@@ -17,13 +17,13 @@ workflows:
   version: 2
   build_and_test:
     # triggers sub WF nomen
-    triggers:
-      - schedule:
-          cron: "* * * * *"
-          filters:
-            branches:
-              only:
-                - master
+    #triggers:
+    #  - schedule:
+    #      cron: "* * * * *"
+    #      filters:
+    #        branches:
+    #          only:
+    #            - master
     jobs:
       - build
       - test
