@@ -19,7 +19,7 @@ workflows:
     # triggers sub WF nomen
     triggers:
       - schedule:
-          cron: "0 1 * * *"
+          cron: "* * * * *"
           filters:
             branches:
               only:
