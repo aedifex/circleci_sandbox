@@ -12,6 +12,7 @@ jobs:
             echo "my artifact file" > /tmp/artifact-1;
             mkdir /tmp/artifacts;
             echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"<https://106-107737354-gh.circle-artifacts.com/0/tmp/artifacts/artifact-2|Click here> for details!"}' https://hooks.slack.com/services/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
 
       - store_artifacts:
           path: /tmp/artifact-1
