@@ -7,7 +7,7 @@ jobs:
     working_directory: /tmp
     steps:
       - run:
-          name: Creating Dummy Artifacts
+          name: Hacking together custom webhook
           command: |
             # echo "my artifact file" > /tmp/artifact-1;
             # mkdir /tmp/artifacts;
