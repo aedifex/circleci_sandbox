@@ -24,8 +24,8 @@ jobs:
       - run:
           name: get artifact url
           command: |
-          curl https://circleci.com/api/v1.1/project/github/CharlesBlack89/circleci_sandbox/$CIRCLE_BUILD_NUM/artifacts?circle-token=$CIRCLE_TOKEN -v | grep -o 'https://[^"]*' > artifactURLs.txt
-          cat artifactURLs.txt
+            curl https://circleci.com/api/v1.1/project/github/CharlesBlack89/circleci_sandbox/$CIRCLE_BUILD_NUM/artifacts?circle-token=$CIRCLE_TOKEN -v | grep -o 'https://[^"]*' > artifactURLs.txt
+            cat artifactURLs.txt
 
 
       - run:
