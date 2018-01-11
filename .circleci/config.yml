@@ -12,11 +12,10 @@ jobs:
       - run:
           name: create, store, and upload build artifacts
           command: |
-            echo "Hello, I am a build artifact!" > /tmp/artifact-1;
-            mkdir /tmp/test_results /tmp/qa_report_template;
+            echo "Hello, I am a build artifact!" > /tmp/artifact-1
 
       - store_artifacts:
-          path: /tmp/
+          path: /tmp/artifact-1
           # destination: artifact-file
 
       #- store_artifacts:
