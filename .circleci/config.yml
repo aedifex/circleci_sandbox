@@ -16,7 +16,7 @@ jobs:
             mkdir /tmp/test_results /tmp/qa_report_template;
 
       - store_artifacts:
-          path: /tmp
+          path: /tmp/
           # destination: artifact-file
 
       #- store_artifacts:
