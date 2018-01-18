@@ -1,36 +1,43 @@
-# store artifacts and post a link
-
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
 version: 2
 jobs:
   build:
-    machine: true
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:8-jdk
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
     environment:
-      - ARTIFACT_URL: ""
-
-    working_directory: /tmp
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+    
     steps:
-      - run:
-          name: create, store, and upload build artifacts
-          command: |
-            echo "Hello, I am a build artifact!" > /tmp/artifact-1
+      - checkout
 
-      - store_artifacts:
-          path: /tmp/artifact-1
-          # destination: artifact-file
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
 
-      #- store_artifacts:
-      #    path: /tmp/artifacts
+      #- run: mvn dependency:go-offline
+      - run: ls -alt *.xml
+      - run: mvn -DskipTests clean install dependency:resolve-plugins dependency:go-offline
 
-      - run:
-          name: get artifact url
-          command: |
-            curl https://circleci.com/api/v1.1/project/github/CharlesBlack89/circleci_sandbox/$CIRCLE_BUILD_NUM/artifacts?circle-token=$CIRCLE_TOKEN | grep -o 'https://[^"]*' > artifactURLs.txt
-            cat artifactURLs.txt
-
-
-      - run:
-          name: send artifact link via Slack
-          command: |
-            ARTIFACT_URL=$(awk 'NR==1{print $1; exit}' artifactURLs.txt)
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"<'"${ARTIFACT_URL}"'|Click here> to see the test results of your last build!"}' https://hooks.slack.com/services/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
-
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+        
+      # run tests!
+      - run: mvn integration-test
