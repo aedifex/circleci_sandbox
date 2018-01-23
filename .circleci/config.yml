@@ -21,7 +21,7 @@ workflows:
       - build:
           filters:
             branches:
-              ignore: /^testing-.*/
+              ignore: /.*/
       - test:
           filters:
             branches:
