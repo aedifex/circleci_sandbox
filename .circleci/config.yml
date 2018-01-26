@@ -2,20 +2,22 @@ version: 2
 jobs:
    build:
      docker:
+      # get image with AWS CLI or....
        - image: circleci/golang:1.8
      steps:
        - checkout
-       # - run: echo "hello world" > sayHi.txt
-       # - run: pwd
 
-       # retrive a simple cached file
-       - restore_cache:
-           keys:
-            - first-cache
+       - run: exit 0
 
-       - run: exit 1
+      # get aws cli
+       - run:
+          name: Install AWSCLI
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get -y -qq install python3.4-dev
+            wget https://bootstrap.pypa.io/get-pip.py
+            python3.4 get-pip.py --user
+            pip install awscli --upgrade --user
+            export PATH=$PATH:$HOME/local/bin
+            aws cli
 
-       - save_cache:
-           key: first-cache
-           paths:
-            - /home/circleci/project
