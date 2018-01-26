@@ -3,7 +3,7 @@ jobs:
    build:
      docker:
       # get image with AWS CLI or....
-       - image: circleci/golang:1.8
+       - image: circleci/node:8.0
      steps:
        - checkout
 
