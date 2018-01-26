@@ -3,7 +3,7 @@ jobs:
    build:
      docker:
       # get image with AWS CLI or....
-       - image: circleci/node:8.0
+       - image: circleci/python:latest
      steps:
        - checkout
 
