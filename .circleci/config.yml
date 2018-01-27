@@ -9,10 +9,6 @@ jobs:
        - run:
           name: Install AWSCLI
           command: |
-            sudo apt-get -y -qq update
-            sudo apt-get -y -qq install python3.4-dev
-            # wget https://bootstrap.pypa.io/get-pip.py
-            # python3.4 get-pip.py --user
-            # pip install awscli --upgrade --user
-            # export PATH=$PATH:$HOME/local/bin
-
+            sudo apt-get update && sudo apt-get install -qq -y python-pip libpython-dev
+            curl -O https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
+            sudo pip install -q awscli --upgrade
