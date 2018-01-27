@@ -3,11 +3,11 @@ jobs:
    build:
      docker:
       # get image with AWS CLI or....
-       - image: circleci/python:latest
+       - image: circleci/openjdk:8-jdk
      steps:
        - checkout
 
-       - run: exit 0
+       - run: exit 1
 
       # get aws cli
        - run:
