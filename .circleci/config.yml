@@ -2,10 +2,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.8
+      - image: $AWS_CREDS
     steps:
       - checkout
-      - run: echo "Hello, from build!"
+      - run: echo 
   test:
     docker:
       - image: circleci/golang:1.8
