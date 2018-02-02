@@ -1,9 +1,31 @@
 version: 2
 jobs:
-   build:
-     machine: true
-     parallelism: 4
-     steps:
-       - checkout
-       - run: echo $CTX_VAR
-       
+  build:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - checkout
+      - run: echo "Hello, from build!"
+  test:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - checkout
+      - run: echo $AWS_CREDS
+
+workflows:
+  version: 2
+  build_and_test:
+    # triggers sub WF nomen
+    #triggers:
+    #  - schedule:
+    #      cron: "* * * * *"
+    #      filters:
+    #        branches:
+    #          only:
+    #            - master
+    jobs:
+      - build:
+          context: org-global
+      - test
+
