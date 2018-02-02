@@ -5,5 +5,5 @@ jobs:
      parallelism: 4
      steps:
        - checkout
-       - run: echo "hello world"
+       - run: echo $CTX_VAR
        
