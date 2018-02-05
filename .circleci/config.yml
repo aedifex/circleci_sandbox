@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: echo $AWS_CREDS  
-      - run: sudo whoami
+      # - run: sudo whoami
   test:
     docker:
       - image: circleci/golang:1.8
