@@ -27,6 +27,6 @@ workflows:
     jobs:
       - build:
           context: org-global
-      - test:
-          context: org-global
+      #- test:
+      #    context: org-global
 
