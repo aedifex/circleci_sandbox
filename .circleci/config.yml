@@ -29,6 +29,7 @@ workflows:
     jobs:
       - build:
           context: org-global
+          type: approval
       #- test:
       #    context: org-global
 
