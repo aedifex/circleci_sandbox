@@ -11,10 +11,11 @@ jobs:
     steps:
       - checkout
 
-      # - setup_remote_docker:
+    - setup_remote_docker
       #    reusable: true
       
-      - run: docker
+    - run: docker build -t chris/test:$CIRCLE_SHA .
+    - run: docker images
       
       #push docker iamge to docker hub
       # - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
