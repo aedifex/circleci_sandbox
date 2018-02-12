@@ -2,11 +2,11 @@ version: 2
 jobs:
   build:
     working_directory: ~/{GH-REPO}
-    environment:
-      IMAGE_TAG: ${CIRCLE_SHA1}
+    #environment:
+    #  IMAGE_TAG: ${CIRCLE_SHA1}
 
     docker:
-       - image: gerey/saasdemo-docker-image:latest
+       - image: circleci/golang:1.9
 
     steps:
       - checkout
@@ -14,8 +14,8 @@ jobs:
       # - setup_remote_docker:
       #    reusable: true
       
-      - run: docker build -t $DOCKER_USER/{GH-REPO}-uwsgi:${CIRCLE_SHA1} uwsgi
+      - run: docker
       
       #push docker iamge to docker hub
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run: docker push $DOCKER_USER/{GH-REPO}-uwsgi:${CIRCLE_SHA1}
+      # - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      # - run: docker push $DOCKER_USER/{GH-REPO}-uwsgi:${CIRCLE_SHA1}
