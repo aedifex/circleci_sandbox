@@ -1,35 +1,21 @@
 version: 2
 jobs:
   build:
-    #docker:
-    #  - image: circleci/golang:1.8
-    machine: true
-    steps:
-      - checkout
-      - run: echo $AWS_CREDS  
-      # - run: sudo whoami
-  test:
+    working_directory: ~/{GH-REPO}
+    environment:
+      IMAGE_TAG: ${CIRCLE_SHA1}
+
     docker:
-      - image: circleci/golang:1.8
+       - image: gerey/saasdemo-docker-image:latest
+
     steps:
       - checkout
-      - run: echo $AWS_CREDS
 
-workflows:
-  version: 2
-  build_and_test:
-    # triggers sub WF nomen
-    #triggers:
-    #  - schedule:
-    #      cron: "* * * * *"
-    #      filters:
-    #        branches:
-    #          only:
-    #            - master
-    jobs:
-      - build:
-          context: org-global
-          type: approval
-      #- test:
-      #    context: org-global
-
+      # - setup_remote_docker:
+      #    reusable: true
+      
+      - run: docker build -t $DOCKER_USER/{GH-REPO}-uwsgi:${CIRCLE_SHA1} uwsgi
+      
+      #push docker iamge to docker hub
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker push $DOCKER_USER/{GH-REPO}-uwsgi:${CIRCLE_SHA1}
