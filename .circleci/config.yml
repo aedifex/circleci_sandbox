@@ -6,7 +6,7 @@ jobs:
     #  IMAGE_TAG: ${CIRCLE_SHA1}
 
     docker:
-       - image: circleci/golang:1.9
+       - image: circleci/ruby:2.4-node
 
     steps:
       - checkout
