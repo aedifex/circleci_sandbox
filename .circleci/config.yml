@@ -11,7 +11,7 @@ jobs:
     steps:
       - checkout
 
-      - setup_remote_docker
+      - setup_remote_docker:
         # reusable: true
       
       - run: docker build -t chris/test:${CIRCLE_SHA1} .
