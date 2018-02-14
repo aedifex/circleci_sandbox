@@ -31,7 +31,8 @@ jobs:
           name: send artifact link via Slack
           command: |
             curl -X POST -H 'Content-type: application/json' \
-            --data `{"text":"< ${ARTIFACT_URL} | Click here> Click here> to see the test results of your last build! "}` \
+            # --data `{"text":"< ${ARTIFACT_URL} | Click here> Click here> to see the test results of your last build! "}` \
+            --data '{"text":"<'"${ARTIFACT_URL}"'|Click here> to see the test results of your last build!"}' \
             https://hooks.slack.com/services/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
 
 
