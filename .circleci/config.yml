@@ -1,21 +1,23 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/{GH-REPO}
+    machine:
+      image: circleci/classic:201711-01
+    # working_directory: ~/{GH-REPO}
     #environment:
     #  IMAGE_TAG: ${CIRCLE_SHA1}
 
-    docker:
-       - image: circleci/ruby:2.4-node
-
     steps:
       - checkout
+      - run:
+          name: Build Box
+          command: echo $DOCKER_PASSWD | docker login $DOCKER_REGISTRY -u $DOCKER_USER --password-stdin
 
-      - setup_remote_docker
+      # - setup_remote_docker
         # reusable: true
       
-      - run: docker build -t chris/test:${CIRCLE_SHA1} .
-      - run: docker images
+      #- run: docker build -t chris/test:${CIRCLE_SHA1} .
+      # - run: docker images
       
       #push docker iamge to docker hub
       # - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
