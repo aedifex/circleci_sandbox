@@ -23,3 +23,9 @@ jobs:
       #push docker iamge to docker hub
       # - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       # - run: docker push $DOCKER_USER/{GH-REPO}-uwsgi:${CIRCLE_SHA1}
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
