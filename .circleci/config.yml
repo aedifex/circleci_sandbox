@@ -6,7 +6,7 @@ jobs:
     # working_directory: ~/{GH-REPO}
     #environment:
     #  IMAGE_TAG: ${CIRCLE_SHA1}
-    parallelism: 25
+    # parallelism: 25
 
     steps:
       - checkout
@@ -33,4 +33,4 @@ workflows:
       - build:
           filters:
             tags:
-              ignore: /^v.*testing$/
+              ignore: /^v.*test$/
