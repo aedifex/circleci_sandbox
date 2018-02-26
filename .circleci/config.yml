@@ -33,4 +33,4 @@ workflows:
       - build:
           filters:
             tags:
-              only: /^v.*circleci$/
+              ignore: /^v.*testing$/
