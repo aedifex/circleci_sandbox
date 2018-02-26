@@ -31,4 +31,6 @@ workflows:
   build_and_test:
     jobs:
       - build:
-          context: individual-local
+          filters:
+            tags:
+              only: /^v.*circleci$/
