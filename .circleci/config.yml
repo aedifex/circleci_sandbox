@@ -14,7 +14,6 @@ jobs:
           name: Build Box
           #  command: echo $DOCKER_PASSWD | docker login $DOCKER_REGISTRY -u $DOCKER_USER --password-stdin
           command: sleep 60000
-          command: echo "I'm doing stuff!"
 
       # - setup_remote_docker
         # reusable: true
