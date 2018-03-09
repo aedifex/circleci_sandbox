@@ -12,5 +12,5 @@ jobs:
        # - run: wget https://services.gradle.org/distributions/gradle-4.6-bin.zip?_ga=2.7228658.1354325567.1520625056-1682346861.1520625056
        # - run: ./gradle
        - run: docker pull circleci/android:api-26-alpha
-       - run: docker images
-       # - run: docker exec -it circleci/android:api-26-alpha ./gradlew
+       # - run: docker images
+       - run: docker exec -it api-26-alpha ./gradlew
