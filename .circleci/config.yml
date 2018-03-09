@@ -9,4 +9,4 @@ jobs:
        # - run: echo "hello world" > sayHi.txt
        # - run: pwd
 
-       - run: sdk install gradle 4.6
+       - run: wget https://services.gradle.org/distributions/gradle-4.6-bin.zip?_ga=2.7228658.1354325567.1520625056-1682346861.1520625056
