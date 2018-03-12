@@ -2,15 +2,17 @@
 version: 2
 jobs:
    build:
-     machine: true
-       # - image: circleci/golang:1.8
+     docker:
+       - image: circleci/golang:1.8
      steps:
-       #- checkout
+       - checkout
        # - run: echo "hello world" > sayHi.txt
        # - run: pwd
 
-       # - run: wget https://services.gradle.org/distributions/gradle-4.6-bin.zip?_ga=2.7228658.1354325567.1520625056-1682346861.1520625056
-       # - run: ./gradle
-       - run: docker pull circleci/android:api-26-alpha
-       # - run: docker images
-       - run: docker exec -it api-26-alpha ./gradlew
+       - add_ssh_keys:
+          fingerprints:
+            - f7:1f:3b:84:fa:6f:30:75:93:6b:ff:ce:59:a5:ba:1b
+
+       - run: echo "testing"
+
+       - run: ssh -o "StrictHostKeyChecking no" -y -tt -i ~/.ssh/id_rsa_f71f3b84fa6f3075936bffce59a5ba1b ec2-user@34.203.230.179 './simple_script.sh'
