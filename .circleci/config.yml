@@ -9,8 +9,8 @@ jobs:
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
      steps:
        - checkout
-       - *restore_cache
-       - *attach_build_workspace
+       #- *restore_cache
+       #- *attach_build_workspace
 
        - run: docker pull circleci/android:api-26-alpha
        # - run: docker cp project circleci/android:/project
