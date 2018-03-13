@@ -14,7 +14,7 @@ jobs:
 
        - run: docker pull circleci/android:api-26-alpha
        - run: touch file.txt
-       - run: docker cp file.txt circleci/android:api-26-alpha:/foo.txt
+       - run: docker cp file.txt api-26-alpha:/foo.txt
 
        - run:
            name: Gradle build - Common
