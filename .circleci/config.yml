@@ -1,29 +1,13 @@
-# sample config for building android on the machine executor
+# sample config used to demonstrate ssh tunneling
 version: 2
 jobs:
    build:
      machine: true
-     environment:
-      TERM: dumb
-      _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2"
-      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
      steps:
        - checkout
-       #- *restore_cache
-       #- *attach_build_workspace
 
-       - run: docker pull circleci/android:api-26-alpha
-       # - run: docker cp project circleci/android:/project
-       - run: docker run -v $(pwd):/opt/tmp -t circleci/android:api-26-alpha ./gradlew :libs:foursquare-common:assembleRelease --no-daemon -Dkotlin.compiler.execution.strategy=in-proces --stacktrace
+       - add_ssh_keys:
+          fingerprints:
+            - f7:1f:3b:84:fa:6f:30:75:93:6b:ff:ce:59:a5:ba:1b
 
-       - run:
-           name: Gradle build - Common
-           # command: docker exec android:api-26-alpha ./gradlew :libs:foursquare-common:assembleRelease --no-daemon -Dkotlin.compiler.execution.strategy=in-proces --stacktrace
-           command: echo "hello world"
-       #- persist_to_workspace:
-       #    root: *workspace
-       #    paths:
-       #     - libs/*/build
-       #     - ./build-cache
-       #     - .gradle
-       #- *save_cache
+       - run: ssh -o "StrictHostKeyChecking no" -y -tt -i ~/.ssh/id_rsa_f71f3b84fa6f3075936bffce59a5ba1b ec2-user@34.203.230.179 './simple_script.sh'
