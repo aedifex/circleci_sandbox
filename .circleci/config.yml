@@ -9,17 +9,17 @@ jobs:
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
      steps:
        - checkout
-       #- *restore_cache
-       #- *attach_build_workspace
+       - *restore_cache
+       - *attach_build_workspace
 
        - run: docker pull circleci/android:api-26-alpha
-       - run: touch file.txt
-       - run: docker cp file.txt android:api-26-alpha:/foo.txt
+       # - run: docker cp project circleci/android:/project
+       - run: docker run -v $(pwd):/opt/tmp -t circleci/android:api-26-alpha ./gradlew :libs:foursquare-common:assembleRelease --no-daemon -Dkotlin.compiler.execution.strategy=in-proces --stacktrace
 
        - run:
            name: Gradle build - Common
-           command: echo "building android"
-           # command: ./gradlew :libs:foursquare-common:assembleRelease --no-daemon -Dkotlin.compiler.execution.strategy=in-proces --stacktrace
+           # command: docker exec android:api-26-alpha ./gradlew :libs:foursquare-common:assembleRelease --no-daemon -Dkotlin.compiler.execution.strategy=in-proces --stacktrace
+           command: echo "hello world"
        #- persist_to_workspace:
        #    root: *workspace
        #    paths:
