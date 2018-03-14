@@ -4,7 +4,7 @@ jobs:
    build:
      machine: true
      steps:
-       - checkout
+       # - checkout
 
        - add_ssh_keys:
           fingerprints:
@@ -14,4 +14,4 @@ jobs:
            command: ssh -L 8000:localhost:8000 -o "StrictHostKeyChecking no" -y -tt -i ~/.ssh/id_rsa_f71f3b84fa6f3075936bffce59a5ba1b ec2-user@34.203.230.179 'python -m SimpleHTTPServer'
            background: true
        - run: while ! curl -sS localhost:8000; do sleep 1; done
-       - run: curl localhost:8000 | grep "Directory"
+       - run: curl localhost:8000
