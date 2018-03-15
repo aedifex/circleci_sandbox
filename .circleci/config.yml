@@ -13,10 +13,10 @@ jobs:
        - run:
            # command: ssh -L 8000:localhost:8000 -o "StrictHostKeyChecking no" -y -tt -i ~/.ssh/id_rsa_f71f3b84fa6f3075936bffce59a5ba1b ec2-user@34.203.230.179 'python -m SimpleHTTPServer'
            command: echo "hi"
-           background: true
+           # background: true
        # - run: while ! curl -sS localhost:8000; do sleep 1; done
        # - run: curl localhost:8000
 
-notify:
-  webhooks:
-    - url: http://ec2-34-203-230-179.compute-1.amazonaws.com/8000
+  notify:
+    webhooks:
+      - url: http://ec2-34-203-230-179.compute-1.amazonaws.com/8000
