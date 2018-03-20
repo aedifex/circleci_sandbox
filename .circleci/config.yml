@@ -11,3 +11,6 @@ jobs:
        - run:
            command: sudo apt-get install openvpn
 
+       - run:
+           command: openvpn --version
+
