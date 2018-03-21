@@ -5,4 +5,4 @@ jobs:
      machine: true
      steps:
        # - run: curl -vvv -s -X PUT -d "`cat aglet_v.yaml`" -H "X-Aglet-Token: \"${AGLETPREPRODTOKEN}\"" -k "http://httpbin.org/put"
-       - run: curl -vvv -s -X PUT -d "``" -k "http://httpbin.org/put"
+       - run: curl -vvv -s -X PUT -d "``" -k "http://httpbin.org/put" -H "X-Aglet-Token: \"${AGLETPREPRODTOKEN}\""
