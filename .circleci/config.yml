@@ -5,4 +5,4 @@ jobs:
      machine: true
      steps:
       - checkout
-      - run: .circleci/sample_script.sh
+      - run: chmod +x .circleci/sample_script.sh && .circleci/sample_script.sh
