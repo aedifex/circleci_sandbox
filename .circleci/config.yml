@@ -9,4 +9,5 @@ jobs:
 
       # - setup_remote_docker
 
-      - run: chmod +x .circleci/sample_script.sh && .circleci/sample_script.sh
+      # - run: chmod +x .circleci/sample_script.sh && .circleci/sample_script.sh
+      -run: curl -vvv -s -X PUT -d "`cat aglet_v.yaml`" -H "X-Aglet-Token: \"${AGLETPREPRODTOKEN}\"" -k "http://httpbin.org/put"
