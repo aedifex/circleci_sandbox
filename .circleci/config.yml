@@ -3,10 +3,10 @@ version: 2
 jobs:
    build:
      docker:
-      - image: circleci/golang:1.8
+      - image: docker:17.10.0-ce-git
      steps:
       - checkout
 
-      - setup_remote_docker
+      # - setup_remote_docker
 
       - run: chmod +x .circleci/sample_script.sh && .circleci/sample_script.sh
