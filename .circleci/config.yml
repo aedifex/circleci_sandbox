@@ -4,4 +4,5 @@ jobs:
    build:
      machine: true
      steps:
+      - checkout
       - run: .circleci/sample_script.sh
