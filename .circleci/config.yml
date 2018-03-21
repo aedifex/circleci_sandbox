@@ -6,11 +6,4 @@ jobs:
      steps:
 
        - run:
-           command: sudo apt-get update
-
-       - run:
-           command: sudo apt-get install openvpn
-
-       - run:
-           command: openvpn --version
-
+           command: curl -vvv -s -X PUT -d "`cat aglet_v.yaml`" -H "X-Aglet-Token: \"${AGLETPREPRODTOKEN}\"" -k "http://httpbin.org/put"
