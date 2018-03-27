@@ -1,41 +1,15 @@
+# sample config used to demonstrate ssh tunneling
 version: 2
 jobs:
-  build:
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - checkout
-      - run: echo $CIRCLE_STAGE
-  test:
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - checkout
-      - run: $CIRCLE_STAGE
-  test-acceptance:
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - run: $CIRCLE_STAGE
-  deploy-prod:
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - run: $CIRCLE_STAGE
+   build:
+     machine: true
+     steps:
+       # - checkout
 
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
-      - test-acceptance:
-          requires:
-            - build
-      - deploy-prod:
-          type: approval
-          requires:
-            - test
-            - test-acceptance
+       - add_ssh_keys:
+          fingerprints:
+            - f7:1f:3b:84:fa:6f:30:75:93:6b:ff:ce:59:a5:ba:1b
+
+       - run: ssh -o "StrictHostKeyChecking no" -y -tt -i ~/.ssh/id_rsa_f71f3b84fa6f3075936bffce59a5ba1b ec2-user@34.203.230.179
+
+       # './simple_script.sh'
