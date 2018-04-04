@@ -5,13 +5,13 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - checkout
-      - run: echo $CIRCLE_STAGE
+      - run: echo $CIRCLE_JOB
   test:
     docker:
       - image: circleci/golang:1.8
     steps:
       - checkout
-      - run: $CIRCLE_STAGE
+      - run: $CIRCLE_JOB
 
 workflows:
   version: 2
