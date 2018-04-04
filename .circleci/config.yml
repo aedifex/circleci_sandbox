@@ -11,7 +11,7 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - checkout
-      - run: $CIRCLE_JOB
+      - run: echo $CIRCLE_JOB
 
 workflows:
   version: 2
