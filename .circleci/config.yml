@@ -4,22 +4,5 @@ jobs:
     docker:
       - image: circleci/golang:1.8
     steps:
-      - checkout
-      - run: echo $CIRCLE_JOB
-  test:
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - checkout
-      - run: echo $CIRCLE_JOB
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build:
-          environment:
-            NAME: chris
-      - test:
-          requires:
-            - build
+      # - checkout
+      - run: env
