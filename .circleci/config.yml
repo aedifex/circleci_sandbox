@@ -68,10 +68,9 @@ jobs:
       steps:
         - checkout
       
-      run:
+      run: echo "ave ex deploy"
         # make check_dependencies && make validate
       # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
-      - echo "ave ex deploy"
 
 
   make-test:
