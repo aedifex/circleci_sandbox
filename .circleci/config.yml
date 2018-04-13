@@ -40,7 +40,7 @@ jobs:
           command: |
             #- if [[ "${CIRCLE_NODE_TOTAL}" -lt 3 ]] ; then exit 9999 ; fi  # safety check
             #python manage.py test
-            - echo "hi from build"
+            echo "hi from build"
 
       #- store_artifacts:
       #    path: test-reports
