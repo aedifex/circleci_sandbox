@@ -36,7 +36,7 @@ jobs:
           name: Make check_deps
           no_output_timeout: 1200s
           command: |
-          echo "hi"
+            echo "hi"
       # - run: make check_dependencies && make validate
 
   make-test:
@@ -48,7 +48,7 @@ jobs:
           name: Make test
           no_output_timeout: 1200s
           command: |
-          echo "hi"
+            echo "hi"
       # - run: make test
 
   make-test-atl:
@@ -60,7 +60,7 @@ jobs:
           name: Make test-atl
           no_output_timeout: 1200s
           command: |
-          echo "hi"
+            echo "hi"
       # - run: echo "1"
       # - run: make test_atl
 
@@ -73,7 +73,7 @@ jobs:
           name: Sanity Check
           no_output_timeout: 1200s
           command: |
-          echo "hi"
+            echo "hi"
       # - run: echo "1"
       # - run: - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
 
