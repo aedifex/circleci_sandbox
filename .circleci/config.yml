@@ -11,8 +11,11 @@ jobs:
       - checkout
       - run:
           name: Fastlane
-          command: echo "tempus longus"
           no_output_timeout: 1200s
+          command: |
+            echo "tempus longus"
+            echo "tempus longus"
+          
   
   make-deps:
     docker:
