@@ -13,18 +13,18 @@ jobs:
           name: Fetch deps
           no_output_timeout: 1200s
           command: |
-            sudo apt-get update; sudo apt-get install p7zip-full
-            make dependencies
+            # sudo apt-get update; sudo apt-get install p7zip-full
+            # make dependencies
 
       - run:
           name: Sanity Check
           no_output_timeout: 1200s
           command: |
-            - uname -a
-            - python --version
-            - pylint --version
-            - flake8 --version
-            - airflow version
+            # uname -a
+            # python --version
+            # pylint --version
+            # flake8 --version
+            # airflow version
           
   
   make-deps:
@@ -33,7 +33,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Sanity Check
+          name: Make check_deps
           no_output_timeout: 1200s
           command: |
           echo "hi"
@@ -44,7 +44,11 @@ jobs:
       - image: circleci/python:3.6.2
     steps:
       - checkout
-      - run: echo "1"
+      - run:
+          name: Make test
+          no_output_timeout: 1200s
+          command: |
+          echo "hi"
       # - run: make test
 
   make-test-atl:
@@ -52,7 +56,12 @@ jobs:
       - image: circleci/python:3.6.2
     steps:
       - checkout
-      - run: echo "1"
+      - run:
+          name: Make test-atl
+          no_output_timeout: 1200s
+          command: |
+          echo "hi"
+      # - run: echo "1"
       # - run: make test_atl
 
   deploy:
@@ -60,7 +69,12 @@ jobs:
       - image: circleci/python:3.6.2
     steps:
       - checkout
-      - run: echo "1"
+      - run:
+          name: Sanity Check
+          no_output_timeout: 1200s
+          command: |
+          echo "hi"
+      # - run: echo "1"
       # - run: - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
 
 experimental:
