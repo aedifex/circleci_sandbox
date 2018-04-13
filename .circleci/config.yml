@@ -48,3 +48,12 @@ workflows:
       - m1
       - m2
       - m3
+      - deploy:
+          requires:
+            - m1
+            - m2
+            - m3
+          filters:
+            branches:
+              only:
+                - master
