@@ -3,6 +3,10 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.6.2
+    environment:
+      # env vars are also set in makefile, clover_config/dev/env.sh
+      ENVIRONMENT: test
+
     steps:
       - checkout
       - run: echo "1"
@@ -12,6 +16,7 @@ jobs:
     steps:
       - checkout
       - run: echo "1"
+      # - run: make check_dependencies && make validate
 
   m2:
     docker:
@@ -19,6 +24,7 @@ jobs:
     steps:
       - checkout
       - run: echo "1"
+      # - run: make test
 
   m3:
     docker:
@@ -26,6 +32,7 @@ jobs:
     steps:
       - checkout
       - run: echo "1"
+      # - run: make test_atl
 
   deploy:
     docker:
@@ -33,6 +40,7 @@ jobs:
     steps:
       - checkout
       - run: echo "1"
+      # - run: - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
 
 experimental:
   notify:
@@ -44,10 +52,21 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
-      - m1
-      - m2
-      - m3
+      - build:
+          filters:
+            branches:
+              ignore:
+                - stable  # stable is used for updating HEAD of deployed code in production, cf. https://github.com/CloverHealth/documentation/blob/master/docs/pipelines_deployment.md
+                - staging  # staging is used for manually updating HEAD of deployed code in staging.
+      - m1:
+          requires:
+            - build
+      - m2:
+          requires:
+            - build
+      - m3:
+          requires:
+            - build
       - deploy:
           requires:
             - m1
