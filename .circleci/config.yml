@@ -10,11 +10,21 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Fastlane
+          name: Fetch deps
           no_output_timeout: 1200s
           command: |
-            echo "tempus longus"
-            echo "tempus longus"
+            sudo apt-get update; sudo apt-get install p7zip-full
+            make dependencies
+
+      - run:
+          name: Sanity Check
+          no_output_timeout: 1200s
+          command: |
+            - uname -a
+            - python --version
+            - pylint --version
+            - flake8 --version
+            - airflow version
           
   
   make-deps:
@@ -22,7 +32,11 @@ jobs:
       - image: circleci/python:3.6.2
     steps:
       - checkout
-      - run: echo "1"
+      - run:
+          name: Sanity Check
+          no_output_timeout: 1200s
+          command: |
+          echo "hi"
       # - run: make check_dependencies && make validate
 
   make-test:
