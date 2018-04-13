@@ -64,6 +64,7 @@ jobs:
   make-check-deps:
     docker:
       - image: circleci/python:3.6.2
+    working_directory: ~/repo
 
       steps:
         - checkout
@@ -76,6 +77,7 @@ jobs:
   make-test:
     docker:
       - image: circleci/python:3.6.2
+    working_directory: ~/repo
 
       steps:
         - checkout
@@ -88,6 +90,7 @@ jobs:
   make-test-atl:
     docker:
       - image: circleci/python:3.6.2
+    working_directory: ~/repo
 
       steps:
         - checkout
@@ -102,6 +105,7 @@ jobs:
   deploy:
     docker:
       - image: circleci/python:3.6.2
+    working_directory: ~/repo
 
       steps:
         - checkout
