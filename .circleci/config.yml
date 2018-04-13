@@ -65,7 +65,7 @@ jobs:
       - image: circleci/python:3.6.2
     steps:
       - checkout
-      - run: echo $CIRCLECI
+      - run: echo "something"
 
   make-test:
     docker:
