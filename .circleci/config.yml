@@ -2,7 +2,137 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.8
+      - image: circleci/python:3.6.2
+
+    working_directory: ~/repo
+    environment:
+      # env vars are also set in makefile, clover_config/dev/env.sh
+      ENVIRONMENT: test
+
     steps:
-      # - checkout
-      - run: env
+      - checkout
+
+      # Download and cache dependencies
+      # - restore_cache:
+      #    keys:
+      #    - v1-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+      #    - v1-dependencies-
+
+   #   - run:
+    #      name: install dependencies
+     #     command: |
+      #      python3 -m venv venv
+       #     . venv/bin/activate
+        #    pip install -r requirements.txt
+
+     # - save_cache:
+      #    paths:
+       #     - ./venv
+        #  key: v1-dependencies-{{ checksum "requirements.txt" }}
+        
+# end first job
+
+# build ~ 
+
+      - run:
+          name: run tests
+          command: |
+            #- if [[ "${CIRCLE_NODE_TOTAL}" -lt 3 ]] ; then exit 9999 ; fi  # safety check
+            #python manage.py test
+            - echo "hi from build"
+
+      #- store_artifacts:
+      #    path: test-reports
+      #    destination: test-reports
+          
+          # one step
+      #     sudo apt-get update; sudo apt-get install p7zip-full
+           
+           # makes ~ create a new docker image
+           #make dependencies
+           
+           # run at the end of the first build
+           #    - uname -a
+   # - python --version
+   # - pylint --version
+   # - flake8 --version
+   # - airflow version
+
+
+# timeout: 1200
+  make-check-deps:
+    docker:
+      - image: circleci/python:3.6.2
+
+      steps:
+        - checkout
+      
+      run:
+        # make check_dependencies && make validate
+      # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
+      - echo "ave ex deploy"
+
+
+  make-test:
+    docker:
+      - image: circleci/python:3.6.2
+
+      steps:
+        - checkout
+      
+      run:
+        # make test
+      # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
+      - echo "ave ex deploy"
+
+  make-test-atl:
+    docker:
+      - image: circleci/python:3.6.2
+
+      steps:
+        - checkout
+      
+      run:
+        make test_atl
+        # make test
+      # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
+      - echo "ave ex deploy"
+
+  # run deploy scripts
+  deploy:
+    docker:
+      - image: circleci/python:3.6.2
+
+      steps:
+        - checkout
+      
+      run:
+      # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
+      - echo "ave ex deploy"
+        
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - make-check-deps:
+          requires:
+            build
+      - make-test:
+          requires:
+            build
+      - make-test-atl:
+          requires:
+            build
+      - deploy:
+          requires:
+            - make-check-deps
+            - make-test
+            - make-test-atl
+          filters:
+            branches:
+              only:
+                - master
+          
