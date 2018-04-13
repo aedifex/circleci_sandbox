@@ -82,10 +82,9 @@ jobs:
       steps:
         - checkout
       
-      run:
+      run: echo "ave ex deploy"
         # make test
       # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
-      - echo "ave ex deploy"
 
   make-test-atl:
     docker:
@@ -95,11 +94,10 @@ jobs:
       steps:
         - checkout
       
-      run:
-        make test_atl
+      run: echo "ave ex deploy"
+        # make test_atl
         # make test
       # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
-      - echo "ave ex deploy"
 
   # run deploy scripts
   deploy:
@@ -110,9 +108,8 @@ jobs:
       steps:
         - checkout
       
-      run:
+      run: echo "ave ex deploy"
       # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
-      - echo "ave ex deploy"
         
 
 workflows:
