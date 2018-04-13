@@ -60,57 +60,34 @@ jobs:
    # - airflow version
 
 
-# timeout: 1200
   make-check-deps:
     docker:
       - image: circleci/python:3.6.2
-    working_directory: ~/repo
-
-      steps:
-        - checkout
-      
-      run: echo "ave ex deploy"
-        # make check_dependencies && make validate
-      # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
-
+    steps:
+      - checkout
+      - run: echo $CIRCLECI
 
   make-test:
     docker:
       - image: circleci/python:3.6.2
-    working_directory: ~/repo
-
-      steps:
-        - checkout
-      
-      run: echo "ave ex deploy"
-        # make test
-      # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
+    steps:
+      - checkout
+      - run: echo "hi"
 
   make-test-atl:
     docker:
       - image: circleci/python:3.6.2
-    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: echo "hi"
 
-      steps:
-        - checkout
-      
-      run: echo "ave ex deploy"
-        # make test_atl
-        # make test
-      # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
-
-  # run deploy scripts
   deploy:
     docker:
       - image: circleci/python:3.6.2
-    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: echo "hi"
 
-      steps:
-        - checkout
-      
-      run: echo "ave ex deploy"
-      # - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
-        
 
 workflows:
   version: 2
