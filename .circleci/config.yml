@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.6.2
+    #machine: true
     environment:
       # env vars are also set in makefile, clover_config/dev/env.sh
       ENVIRONMENT: test
@@ -11,103 +12,11 @@ jobs:
       - checkout
       - run:
           name: Fetch deps
-          no_output_timeout: 1200s
-          command: |
-            # sudo apt-get update; sudo apt-get install p7zip-full
-            # make dependencies
-
-      - run:
-          name: Sanity Check
-          no_output_timeout: 1200s
-          command: |
-            # uname -a
-            # python --version
-            # pylint --version
-            # flake8 --version
-            # airflow version
-          
-  
-  make-deps:
-    docker:
-      - image: circleci/python:3.6.2
-    steps:
-      - checkout
-      - run:
-          name: Make check_deps
-          no_output_timeout: 1200s
           command: |
             echo "hi"
-      # - run: make check_dependencies && make validate
+            curl \
+            --header "X-Vault-Token: 9bed018e-59ff-14a7-9e5e-36e5b15c7188" \
+            http://172.31.58.141:8200/v1/aws/creds/my-role 
 
-  make-test:
-    docker:
-      - image: circleci/python:3.6.2
-    steps:
-      - checkout
-      - run:
-          name: Make test
-          no_output_timeout: 1200s
-          command: |
-            echo "hi"
-      # - run: make test
 
-  make-test-atl:
-    docker:
-      - image: circleci/python:3.6.2
-    steps:
-      - checkout
-      - run:
-          name: Make test-atl
-          no_output_timeout: 1200s
-          command: |
-            echo "hi"
-      # - run: echo "1"
-      # - run: make test_atl
 
-  deploy:
-    docker:
-      - image: circleci/python:3.6.2
-    steps:
-      - checkout
-      - run:
-          name: Sanity Check
-          no_output_timeout: 1200s
-          command: |
-            echo "hi"
-      # - run: echo "1"
-      # - run: - /home/ubuntu/clover_pipeline/clover_scripts/push_branch_and_notify.py stable /home/ubuntu/clover_pipeline/clover_config/notification_mappings.yaml
-
-experimental:
-  notify:
-    branches:
-      only:
-        - master
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build:
-          filters:
-            branches:
-              ignore:
-                - stable  # stable is used for updating HEAD of deployed code in production, cf. https://github.com/CloverHealth/documentation/blob/master/docs/pipelines_deployment.md
-                - staging  # staging is used for manually updating HEAD of deployed code in staging.
-      - make-deps:
-          requires:
-            - build
-      - make-test:
-          requires:
-            - build
-      - make-test-atl:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - make-deps
-            - make-test
-            - make-test-atl
-          filters:
-            branches:
-              only:
-                - master
