@@ -13,9 +13,5 @@ jobs:
       - run:
           name: Fetch deps
           command: |
-            CRED=$(curl --header "X-Vault-Token: 9bed018e-59ff-14a7-9e5e-36e5b15c7188" -s http://172.31.58.141:8200/v1/aws/creds/my-role | jq -r .data.access_key)
-            echo $CRED
-
-
-
-
+            container=$(docker-compose ps -q)
+            echo $container
