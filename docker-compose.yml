@@ -1,0 +1,8 @@
+uwsgi:
+  image: circleci/python:3.6.2
+nginx:
+  image: circleci/python:3.6.2
+  links:
+    - uwsgi
+  ports:
+    - 80
