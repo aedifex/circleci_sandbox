@@ -13,5 +13,4 @@ jobs:
       - run:
           name: Fetch deps
           command: |
-            container=$(whoami)
-            echo $container
+            docker images
