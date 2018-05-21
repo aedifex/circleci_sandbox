@@ -1,0 +1,2 @@
+# prevent un-authorized modification of config file
+.circleci/config.yml @aedifex
