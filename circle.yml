@@ -1,0 +1,9 @@
+machine:
+  services:
+    - docker
+
+deployment:
+  prod:
+    branch: master
+    commands:
+      - echo "hello from 1.0!!"
