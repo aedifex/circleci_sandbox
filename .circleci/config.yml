@@ -1,16 +1,9 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/python:3.6.2
-    #machine: true
-    environment:
-      # env vars are also set in makefile, clover_config/dev/env.sh
-      ENVIRONMENT: test
+machine:
+  services:
+    - docker
 
-    steps:
-      - checkout
-      - run:
-          name: Fetch deps
-          command: |
-            docker images
+deployment:
+  prod:
+    branch: master
+    commands:
+      - echo "hello from 1.0!!"
