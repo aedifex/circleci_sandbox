@@ -9,5 +9,5 @@ jobs:
       - checkout
 
       - run: echo "testing"
-      - run: sleep 360
-      - run: echo "wake up!"
+      - run: sleep 359
+      # - run: echo "wake up!"
