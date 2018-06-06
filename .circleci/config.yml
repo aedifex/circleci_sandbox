@@ -10,3 +10,4 @@ jobs:
 
       - run: echo "testing"
       - run: sleep 360
+      - run: echo "wake up!"
