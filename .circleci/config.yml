@@ -9,4 +9,4 @@ jobs:
       - checkout
 
       - run: echo "testing"
-      - run: echo "testing 2"
+      - run: sleep 360
