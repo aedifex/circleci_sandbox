@@ -11,3 +11,4 @@ jobs:
       - run: echo "testing"
       - run: sleep 359
       - run: echo "wake up!"
+      - run: "be your best self"
