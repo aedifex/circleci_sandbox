@@ -1,11 +1,36 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/openjdk:8-jdk
-    working_directory: ~/repo
-    
-    steps:
-      - checkout
+machine:
+  python:
+    version: 2.7.10
+  pre:
+    # configure o/s proxy in our circle container for debian package dependencies
+    - echo 'Acquire::http::Proxy "http://proxy-dev.frg.tech:3128";' | sudo tee -a /etc/apt/apt.conf
+    # configure pypi to our internal pypi repo with trusted host
+    - (echo '[global]'; echo 'index-url = http://repo.fanaticslabs.com/artifactory/api/pypi/pypi/simple'; echo 'trusted-host = repo.fanaticslabs.com') | (mkdir -p $HOME/.pip && tee $HOME/.pip/pip.conf)
+  environment:
+    http_proxy: http://proxy-dev.frg.tech:3128
+    https_proxy: http://proxy-dev.frg.tech:3128
+    no_proxy: 127.0.0.1,repo.fanaticslabs.com
+    GRADLE_OPTS: -Dhttp.nonProxyHosts=repo.fanaticslabs.com -Dhttp.proxyHost=proxy-dev.frg.tech -Dhttp.proxyPort=3128 -Dhttps.nonProxyHosts=repo.fanaticslabs.com -Dhttps.proxyHost=proxy-dev.frg.tech -Dhttps.proxyPort=3128 -Dorg.gradle.jvmargs="-Xmx1024m -XX:+HeapDumpOnOutOfMemoryError"
 
-      - run: echo "testing"
+dependencies:
+  override:
+    - ./gradlew assemble
+
+test:
+  override:
+    - ./gradlew test
+
+deployment:
+  master:
+    branch: master
+    commands:
+      - ./gradlew publish -PisRelease=true
+    #   - ./gradlew deploy -PisRelease=true
+  feature:
+    branch: /.*/
+    commands:
+      - ./gradlew publish
+
+general:
+  artifacts:
+    - "build/dist"
