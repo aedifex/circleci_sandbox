@@ -1,14 +1,8 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: circleci/openjdk:8-jdk
-    working_directory: ~/repo
-    
-    steps:
-      - checkout
-
-      - run: echo "testing"
-      - run: sleep 359
-      - run: echo "wake up!"
-      - run: "be your best self"
+   build:
+     docker:
+       - image: circleci/openjdk:8-jdk
+     steps:
+       - checkout
+       - run: echo "hello world"
