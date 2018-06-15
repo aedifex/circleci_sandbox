@@ -1,36 +1,47 @@
-machine:
-  python:
-    version: 2.7.10
-  pre:
-    # configure o/s proxy in our circle container for debian package dependencies
-    - echo 'Acquire::http::Proxy "http://proxy-dev.frg.tech:3128";' | sudo tee -a /etc/apt/apt.conf
-    # configure pypi to our internal pypi repo with trusted host
-    - (echo '[global]'; echo 'index-url = http://repo.fanaticslabs.com/artifactory/api/pypi/pypi/simple'; echo 'trusted-host = repo.fanaticslabs.com') | (mkdir -p $HOME/.pip && tee $HOME/.pip/pip.conf)
-  environment:
-    http_proxy: http://proxy-dev.frg.tech:3128
-    https_proxy: http://proxy-dev.frg.tech:3128
-    no_proxy: 127.0.0.1,repo.fanaticslabs.com
-    GRADLE_OPTS: -Dhttp.nonProxyHosts=repo.fanaticslabs.com -Dhttp.proxyHost=proxy-dev.frg.tech -Dhttp.proxyPort=3128 -Dhttps.nonProxyHosts=repo.fanaticslabs.com -Dhttps.proxyHost=proxy-dev.frg.tech -Dhttps.proxyPort=3128 -Dorg.gradle.jvmargs="-Xmx1024m -XX:+HeapDumpOnOutOfMemoryError"
+version: 2
 
-dependencies:
-  override:
-    - ./gradlew assemble
+jobs:
 
-test:
-  override:
-    - ./gradlew test
+  build:
 
-deployment:
-  master:
-    branch: master
-    commands:
-      - ./gradlew publish -PisRelease=true
-    #   - ./gradlew deploy -PisRelease=true
-  feature:
-    branch: /.*/
-    commands:
-      - ./gradlew publish
+    environment:
 
-general:
-  artifacts:
-    - "build/dist"
+      # http_proxy: http://proxy-dev.frg.tech:3128
+
+      # https_proxy: http://proxy-dev.frg.tech:3128
+
+      # no_proxy: 127.0.0.1,dev-owm001.fanatics.corp,qc-owm001.fanatics.corp,aws-owm001.fanatics.corp,aws-owm002.fanatics.corp
+
+      # AWS_DEFAULT_REGION: us-east-1
+
+    machine:
+
+      image: circleci/classic:latest
+
+    steps:
+
+      - checkout
+
+      - run:
+
+          command: |
+
+            # curl -u ${DEPLOY_USER}:${DEPLOY_PASSWORD} "http://dev-owm001.fanatics.corp:8080/opswise/resources/task/ops-task-launch"  -H "Content-Type: application/xml" --data "<task-launch><name>WF_DEPLOY_CONFIG</name><variables><variable><name>BRANCH</name><value>$CIRCLE_BRANCH</value></variable><variable><name>DEPLOY_BY_USER</name><value>$CIRCLE_USERNAME</value></variable></variables></task-launch>" | grep -q "<success>true</success>" || exit 1
+
+            # curl -u ${DEPLOY_USER}:${DEPLOY_PASSWORD} "http://qc-owm001.fanatics.corp:8080/opswise/resources/task/ops-task-launch"  -H "Content-Type: application/xml" --data "<task-launch><name>WF_DEPLOY_CONFIG</name><variables><variable><name>BRANCH</name><value>$CIRCLE_BRANCH</value></variable><variable><name>DEPLOY_BY_USER</name><value>$CIRCLE_USERNAME</value></variable></variables></task-launch>" | grep -q "<success>true</success>" || exit 1
+
+workflows:
+
+  version: 2
+
+  deploy-workflow:
+
+    jobs:
+
+      - build:
+
+          filters:
+
+            branches:
+
+              only: master
