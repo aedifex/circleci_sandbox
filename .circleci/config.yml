@@ -11,8 +11,7 @@ jobs:
 
       # AWS_DEFAULT_REGION: us-east-1
 
-    machine:
-      image: circleci/classic:latest
+    machine: true
 
     steps:
 
