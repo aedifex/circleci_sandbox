@@ -12,8 +12,7 @@ jobs:
       # AWS_DEFAULT_REGION: us-east-1
 
     docker:
-      - image: ansibleplaybookbundle/rhel-apb
-
+      - image: docker pull rakulacook/oc-mysql
     steps:
 
       - checkout
