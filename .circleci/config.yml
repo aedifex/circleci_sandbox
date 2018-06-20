@@ -11,7 +11,8 @@ jobs:
 
       # AWS_DEFAULT_REGION: us-east-1
 
-    machine: true
+    docker:
+      - image: ansibleplaybookbundle/rhel-apb
 
     steps:
 
