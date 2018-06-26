@@ -1,35 +1,23 @@
 version: 2
 jobs:
   build:
-    environment:
-
-      # http_proxy: http://proxy-dev.frg.tech:3128
-
-      # https_proxy: http://proxy-dev.frg.tech:3128
-
-      # no_proxy: 127.0.0.1,dev-owm001.fanatics.corp,qc-owm001.fanatics.corp,aws-owm001.fanatics.corp,aws-owm002.fanatics.corp
-
-      # AWS_DEFAULT_REGION: us-east-1
-
     docker:
-      - image: lingmann/1gb
+      - image: circleci/golang:1.8
     steps:
-
       - checkout
-
-      - run:
-
-          command: |
-
-            # curl -u ${DEPLOY_USER}:${DEPLOY_PASSWORD} "http://dev-owm001.fanatics.corp:8080/opswise/resources/task/ops-task-launch"  -H "Content-Type: application/xml" --data "<task-launch><name>WF_DEPLOY_CONFIG</name><variables><variable><name>BRANCH</name><value>$CIRCLE_BRANCH</value></variable><variable><name>DEPLOY_BY_USER</name><value>$CIRCLE_USERNAME</value></variable></variables></task-launch>" | grep -q "<success>true</success>" || exit 1
-
-            # curl -u ${DEPLOY_USER}:${DEPLOY_PASSWORD} "http://qc-owm001.fanatics.corp:8080/opswise/resources/task/ops-task-launch"  -H "Content-Type: application/xml" --data "<task-launch><name>WF_DEPLOY_CONFIG</name><variables><variable><name>BRANCH</name><value>$CIRCLE_BRANCH</value></variable><variable><name>DEPLOY_BY_USER</name><value>$CIRCLE_USERNAME</value></variable></variables></task-launch>" | grep -q "<success>true</success>" || exit 1
+      - run: sleep 180
+  test:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - checkout
+      - run: echo $AWS_CREDS
 
 workflows:
   version: 2
-  deploy-workflow:
+  build_and_test:
     jobs:
       - build:
-          filters:
-            branches:
-              only: master
+          context: org-global
+      - test
+
