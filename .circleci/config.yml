@@ -2,29 +2,18 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.8
+      - image: golang:1.8
+    working_directory: /go/src/github.com/CircleCI-Public/circleci-demo-docker
     steps:
       - checkout
-      - run: sleep 180
-  test:
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - checkout
-      - run: sleep 180
-  anotherTest:
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - checkout
-      - run: sleep 180
+      # ... steps for building/testing app ...
 
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build:
-          context: org-global
-      - test
-      - anotherTest
+      #- setup_remote_docker:   # (2)
+      #    docker_layer_caching: true # (3)
 
+      # use a primary image that already has Docker (recommended)
+      # or install it during a build like we do here
+      - run:
+          name: system stats
+          command: |
+            echo "Ave Mundus!"
