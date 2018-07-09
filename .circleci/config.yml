@@ -16,4 +16,4 @@ jobs:
       - run:
           name: system stats
           command: |
-            echo "Ave Mundus!"
+            echo $CUSTOM_VAR
