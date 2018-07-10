@@ -2,18 +2,11 @@ version: 2
 jobs:
   build:
     docker:
-      - image: golang:1.8
-    working_directory: /go/src/github.com/CircleCI-Public/circleci-demo-docker
+      - image: circleci/python:latest
+    # working_directory: /
     steps:
       - checkout
-      # ... steps for building/testing app ...
-
-      #- setup_remote_docker:   # (2)
-      #    docker_layer_caching: true # (3)
-
-      # use a primary image that already has Docker (recommended)
-      # or install it during a build like we do here
       - run:
-          name: system stats
+          name: basic
           command: |
-            echo $CUSTOM_VAR
+            echo "CRON jobs are cool"
