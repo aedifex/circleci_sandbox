@@ -11,8 +11,7 @@ jobs:
           name: basic
           when: always
           command: |
-            notAcommand
-            echo $?
+            notAcommand ; echo $?
       - run:
           name: semper
           when: always
