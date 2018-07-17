@@ -9,6 +9,7 @@ jobs:
       - checkout
       - run:
           name: basic
+          when: always
           command: |
             notAcommand
       - run:
