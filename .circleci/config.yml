@@ -12,6 +12,7 @@ jobs:
           when: always
           command: |
             notAcommand
+            echo $?
       - run:
           name: semper
           when: always
