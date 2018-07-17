@@ -5,9 +5,14 @@ jobs:
       - image: circleci/python:latest
     # working_directory: /
     steps:
-      - setup_remote_docker
+      # - setup_remote_docker
       - checkout
       - run:
           name: basic
           command: |
-            echo "CRON jobs are cool"
+            notAcommand
+      - run:
+          name: semper
+          when: always
+          command: |
+            echo $?
