@@ -9,9 +9,9 @@ jobs:
       - checkout
       - run:
           name: basic
-          when: always
+          # when: always
           command: |
-            notAcommand ; echo $?
+            notAcommand; echo $?
       - run:
           name: semper
           when: always
