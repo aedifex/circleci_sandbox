@@ -12,5 +12,5 @@ jobs:
           name: split
           # when: always
           command: |
-            # TEST=
-            echo "foo"
+            TEST=$(whoami)
+            echo "I AM ${TEST}"
