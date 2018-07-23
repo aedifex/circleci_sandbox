@@ -12,6 +12,6 @@ jobs:
           name: split
           # when: always
           command: |
-            TEST=$(whoami)
+            # TEST=$(whoami)
             TESTFILES=$(circleci tests glob "spec/**_spec.rb" | circleci tests split --split-by=timings)
-            echo "Testfiles: ${TEST}"
+            echo "Testfiles: ${TESTFILES}"
