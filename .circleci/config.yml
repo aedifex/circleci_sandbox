@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    parallelism: 6
     docker:
       - image: circleci/python:latest
     # working_directory: /
@@ -8,12 +9,8 @@ jobs:
       # - setup_remote_docker
       - checkout
       - run:
-          name: basic
+          name: split
           # when: always
           command: |
-            notAcommand; echo $?
-      - run:
-          name: semper
-          when: always
-          command: |
-            echo $?
+            # TEST=
+            echo "foo"
