@@ -14,7 +14,7 @@ jobs:
       - checkout
       - run: echo "A more familiar hi"
       # - run: sleep 15
-      - run: exit 0
+      - run: exit 1
 
 
 workflows:
@@ -22,4 +22,6 @@ workflows:
   build-and-test:
     jobs:
       - build
-      - test
+      - test:
+          requires:
+            - build
