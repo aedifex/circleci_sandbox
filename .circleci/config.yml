@@ -5,8 +5,9 @@ jobs:
       - image: google/cloud-sdk
     steps:
       - checkout
-      - run: kubectl run hello-web --image=gcr.io/${PROJECT_ID}/hello-app:v1 --port 8080
+      # - run: kubectl run hello-web --image=gcr.io/${PROJECT_ID}/hello-app:v1 --port 8080
       # - run: sleep 25
+      - run: kubectl get pods
   test:
     docker:
       - image: circleci/ruby:2.4.1
