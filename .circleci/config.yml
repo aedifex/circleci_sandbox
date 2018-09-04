@@ -1,11 +1,11 @@
-version: 2
-
 build:
   branches:
     only:
       - circle-docker-abomination
 
 workflows:
+  version: 2
+  my_workflow:
   # - download_code:
   #    requires: download_code
   - download_code
