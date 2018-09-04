@@ -6,9 +6,10 @@ build:
 workflows:
   version: 2
   my_workflow:
+    jobs:
+      - download_code
   # - download_code:
   #    requires: download_code
-  - download_code
 
 jobs:
   download_code:
