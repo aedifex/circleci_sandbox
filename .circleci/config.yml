@@ -1,13 +1,13 @@
-build:
-  branches:
-    only:
-      - circle-docker-abomination
+# build:
+#   branches:
+#    only:
+#      - circle-docker-abomination
 
 workflows:
   version: 2
   my_workflow:
     jobs:
-      download_code:
+      - download_code:
       filters:
         branches:
           only: master
