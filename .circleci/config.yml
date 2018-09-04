@@ -10,8 +10,7 @@ workflows:
       - download_code:
       filters:
         branches:
-          only:
-            - master
+          only: master
   # - download_code:
   #    requires: download_code
 
