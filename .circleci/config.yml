@@ -8,6 +8,10 @@ workflows:
   my_workflow:
     jobs:
       - download_code
+      filters:
+        branches:
+          only:
+            - master
   # - download_code:
   #    requires: download_code
 
@@ -15,7 +19,7 @@ jobs:
   download_code:
     # executor: dind
     docker: 
-      - image: dind
+      - image: circleci/golang:1.8
     steps:
       - setup_remote_docker
       - run:
