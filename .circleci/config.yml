@@ -12,7 +12,9 @@ workflows:
 
 jobs:
   download_code:
-    executor: dind
+    # executor: dind
+    docker: 
+      - image: dind
     steps:
       - setup_remote_docker
       - run:
