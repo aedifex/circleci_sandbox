@@ -1,28 +1,34 @@
 version: 2
-jobs:
-  build:
-    docker:
-      - image: google/cloud-sdk
-    steps:
-      - checkout
-      # - run: kubectl run hello-web --image=gcr.io/${PROJECT_ID}/hello-app:v1 --port 8080
-      # - run: sleep 25
-      - run: kubectl get pods
-  test:
-    docker:
-      - image: circleci/ruby:2.4.1
-    steps:
-      - checkout
-      - run: echo "A more familiar hi"
-      # - run: sleep 15
-      - run: exit 0
 
+build:
+  branches:
+    only:
+      - circle-docker-abomination
 
 workflows:
-  version: 2
-  build-and-test:
-    jobs:
-      - build
-      #- test:
-      #    requires:
-      #      - build
+  # - download_code:
+  #    requires: download_code
+  - download_code
+
+jobs:
+  download_code:
+    executor: dind
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Download source code from GitHub
+          command: |
+            # curl -L -u xxx:xxx \
+            #   https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/tarball/$CIRCLE_SHA1 > source.tar.gz
+            # tar --strip-components=1 -xzf source.tar.gz && rm source.tar.gz
+      - run:
+          name: "Build Docker image: src-$CIRCLE_SHA1"
+          command: |
+            # docker info
+            # docker login -u AWS -p xxx https://451899138981.dkr.ecr.us-east-1.amazonaws.com
+            # docker build -t src-$CIRCLE_SHA1 -f .circleci/jobs/download_code .
+
+# executors:
+#   dind:
+#    docker:
+#      - image: dind
