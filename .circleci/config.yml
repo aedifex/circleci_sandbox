@@ -1,40 +1,9 @@
-# build:
-#   branches:
-#    only:
-#      - circle-docker-abomination
-
-workflows:
-  version: 2
-  my_workflow:
-    jobs:
-      - download_code:
-      filters:
-        branches:
-          only: master
-  # - download_code:
-  #    requires: download_code
-
+version: 2
 jobs:
-  download_code:
-    # executor: dind
-    docker: 
-      - image: circleci/golang:1.8
-    steps:
-      - setup_remote_docker
-      - run:
-          name: Download source code from GitHub
-          command: |
-            # curl -L -u xxx:xxx \
-            #   https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/tarball/$CIRCLE_SHA1 > source.tar.gz
-            # tar --strip-components=1 -xzf source.tar.gz && rm source.tar.gz
-      - run:
-          name: "Build Docker image: src-$CIRCLE_SHA1"
-          command: |
-            # docker info
-            # docker login -u AWS -p xxx https://451899138981.dkr.ecr.us-east-1.amazonaws.com
-            # docker build -t src-$CIRCLE_SHA1 -f .circleci/jobs/download_code .
-
-# executors:
-#   dind:
-#    docker:
-#      - image: dind
+   build:
+     docker:
+      - image: alpine:latest
+     parallelism: 4
+     steps:
+       - checkout
+       - run: echo $CTX_VAR
