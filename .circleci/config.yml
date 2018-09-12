@@ -6,4 +6,4 @@ jobs:
      parallelism: 4
      steps:
        - checkout
-       - run: echo "Hello from node ${CIRCLECI_NODE_INDEX}"
+       - run: echo "Hello from node ${CIRCLE_NODE_INDEX}"
