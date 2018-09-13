@@ -6,4 +6,4 @@ jobs:
      parallelism: 2
      steps:
        - checkout
-       - run: echo "Unfollow from node ${CIRCLE_NODE_INDEX}"
+       - run: echo "Close??? from node ${CIRCLE_NODE_INDEX}"
