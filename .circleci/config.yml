@@ -6,4 +6,4 @@ jobs:
      parallelism: 2
      steps:
        - checkout
-       - run: echo "whut? from node ${CIRCLE_NODE_INDEX}"
+       - run: echo "New commit from node ${CIRCLE_NODE_INDEX}"
