@@ -3,7 +3,7 @@ jobs:
    build:
      docker:
       - image: alpine:latest
-     parallelism: 4
+     parallelism: 2
      steps:
        - checkout
        - run: echo "Hello from node ${CIRCLE_NODE_INDEX}"
