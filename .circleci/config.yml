@@ -6,4 +6,4 @@ jobs:
      parallelism: 2
      steps:
        - checkout
-       - run: echo "Close??? from node ${CIRCLE_NODE_INDEX}"
+       - run: echo "whut? from node ${CIRCLE_NODE_INDEX}"
