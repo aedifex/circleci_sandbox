@@ -6,7 +6,7 @@ jobs:
       - image: circleci/android:api-25-alpha
     environment:
       JVM_OPTS: -Xmx3200m
-    resource_clas: large
+    resource_class: small
     steps:
       - checkout
       #- restore_cache:
