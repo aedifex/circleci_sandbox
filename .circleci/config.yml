@@ -9,3 +9,32 @@ jobs:
     resource_class: large
     steps:
       - checkout
+#      - restore_cache:
+#          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "pdf-module/build.gradle" }}
+#      - run:
+#         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this. 
+#         command: sudo chmod +x ./gradlew
+#      - run:
+#          name: Download Dependencies
+#          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "pdf-module/build.gradle" }}
+#      - run:
+#          name: Run Lint
+#          command: ./gradlew lint test createUnifiedDebugCoverageReport
+#      - run:
+#          name: Initial build
+#          command: ./gradlew clean assembleRelease
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports/app
+      - store_artifacts:
+          path: pdf-module/build/reports
+          destination: reports/pdf-module
+      - store_test_results:
+          path: pdf-module/build/test-results
+      - store_test_results:
+          path: app/build/test-results
+      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
