@@ -2,7 +2,7 @@ version: 2
 jobs:
   build-and-test:
     macos:
-      xcode: "9.0"
+      xcode: "9.1"
 
     parallelism: 2
     steps:
@@ -10,7 +10,7 @@ jobs:
       - run:
           name: Fetch CocoaPods Specs
           command: |
-            echo hello!
+            echo Hello from $CIRCLE_NODE_INDEX
 
 workflows:
   version: 2
