@@ -2,12 +2,12 @@ version: 2
 jobs:
   build:
     # parallelism: 4
-    # machine: true
-    docker:
-      - image: circleci/python:latest
+    machine: true
+    #docker:
+    #  - image: circleci/python:latest
     # working_directory: /
     steps:
-      - setup_remote_docker
+      # - setup_remote_docker
       - checkout
       - run:
           name: split
