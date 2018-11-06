@@ -14,7 +14,7 @@ jobs:
       - checkout
       - run: echo $CIRCLE_STAGE
   
-  test-acceptance:
+  deploy-staging:
     docker:
       - image: circleci/golang:1.8
     steps:
@@ -34,13 +34,14 @@ workflows:
       - test:
           requires:
             - build
-      - test-acceptance:
+      - deploy-staging:
+          type: approval
           requires:
             - test
       - deploy-prod:
           type: approval
           filters:
             branches:
-              only: dev-*
+              only: master
           requires:
             - test-acceptance
