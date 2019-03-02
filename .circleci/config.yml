@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.8
+      - image: elasticsearch:2.4-alpine
     steps:
       - checkout
       - run: echo $CIRCLE_STAGE
