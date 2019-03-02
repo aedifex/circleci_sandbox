@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: 'docker:17.12.1~ce-0~ubuntu'
+      - image: circleci/golang:1.8
       - image: elasticsearch:2.4-alpine
     steps:
       - checkout
