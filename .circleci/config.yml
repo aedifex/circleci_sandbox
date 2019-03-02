@@ -31,17 +31,17 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test:
-          requires:
-            - build
-      - deploy-staging:
-          type: approval
-          requires:
-            - test
-      - deploy-prod:
-          type: approval
-          filters:
-            branches:
-              only: master
-          requires:
-            - test-acceptance
+      #- test:
+      #    requires:
+      #      - build
+      #- deploy-staging:
+      #    type: approval
+      #    requires:
+      #      - test
+      #- deploy-prod:
+      #    type: approval
+      #    filters:
+      #      branches:
+      #        only: master
+      #    requires:
+      #      - deploy-staging
