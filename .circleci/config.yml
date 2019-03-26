@@ -2,11 +2,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.8
-      - image: elasticsearch:2.4-alpine
+      - image: circleci/ruby:2.4.2-jessie-browsers
     steps:
       - checkout
-      - run: echo $CIRCLE_STAGE
+      - run: echo "Hello, world"
   
   test:
     docker:
