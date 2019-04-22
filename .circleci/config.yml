@@ -11,7 +11,7 @@ jobs:
       - run: echo "Hello, world"
       - run:
           name: Upload Failed Tests
-          command: curl -X POST -H 'Content-type: application/json' --data '{"text":"Allow me to reintroduce myself!"}' https://hooks.slack.com/services/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
+          command: curl -X POST -H --data '{"text":"Allow me to reintroduce myself!"}' https://hooks.slack.com/services/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
           when: on_fail
 
   
