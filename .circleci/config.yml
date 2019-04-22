@@ -1,6 +1,9 @@
-version: 2
+version: 2.1
+orbs:
+  slack: circleci/slack@2.0.0
 jobs:
   build:
+    parallelism: 3
     docker:
       - image: circleci/ruby:2.4.2-jessie-browsers
     steps:
@@ -19,12 +22,10 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - run: echo $CIRCLE_STAGE
-  
-  deploy-prod:
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - run: echo $CIRCLE_STAGE
+      - slack/status:
+          mentions: 'chris'
+          webhook: ${SLACK_WEBHOOK}
+
 
 workflows:
   version: 2
