@@ -1,54 +1,10 @@
 version: 2.1
-orbs:
-  slack: circleci/slack@2.0.0
 jobs:
   build:
     parallelism: 3
     docker:
-      - image: circleci/ruby:2.4.2-jessie-browsers
+      - image: centos6
     steps:
       - checkout
       - run: echo "Hello, world"
-      - run: if [ "${CIRCLE_NODE_INDEX}" = 0 ]; then exit 1; fi
-      - run:
-          name: Upload Failed Tests
-          command: curl -X POST -H --data '{"text":"Allow me to reintroduce myself!"}' https://hooks.slack.com/services/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
-          when: on_fail
 
-  
-  test:
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - checkout
-      - run: echo $CIRCLE_STAGE
-  
-  deploy-staging:
-    parallelism: 3
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - run: echo $CIRCLE_STAGE
-      # - slack/status:
-      #    mentions: 'chris'
-      #    webhook: ${SLACK_WEBHOOK}
-
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
-      - deploy-staging:
-          requires:
-            - test
-      #- deploy-prod:
-      #    type: approval
-      #    filters:
-      #      branches:
-      #        only: master
-      #    requires:
-      #      - deploy-staging
