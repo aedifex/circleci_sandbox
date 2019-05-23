@@ -6,14 +6,11 @@ jobs:
       - image: centos/postgresql-10-centos7
     steps:
       - checkout
-      - run: echo "Hello, world"
+      - run: echo $CIRCLE_USERNAME
 
 
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build:
-          filters:
-            tags:
-              only: /^v.*/
+      - build
