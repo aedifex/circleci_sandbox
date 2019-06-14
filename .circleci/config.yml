@@ -1,14 +1,10 @@
-jobs:
-  build:
-    docker:
-      - image: 'circleci/node:10'
-    steps:
-      - checkout
-      - echo "testing"
-      - artifactory/install
-      - artifactory/configure
-      - artifactory/build-integration
-      
-orbs:
-  artifactory: circleci/artifactory@1.0.0
 version: 2.1
+commands:
+  sayhello:
+    description: "A very simple command for demonstration purposes"
+    parameters:
+      to:
+        type: string
+        default: "Hello World"
+    steps:
+      - run: echo << parameters.to >>
