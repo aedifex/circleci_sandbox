@@ -8,3 +8,11 @@ commands:
         default: "Hello World"
     steps:
       - run: echo << parameters.to >>
+
+jobs:
+  myjob:
+    docker:
+      - image: "circleci/node:9.6.1"
+    steps:
+      - sayhello:
+          to: "Lev"
