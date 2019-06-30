@@ -5,5 +5,4 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - checkout
-      - echo "tests"
-      - echo "Run extra tests? " $RUN_EXTRA_TESTS
+      - run: echo "Run extra tests?: " $RUN_EXTRA_TESTS
