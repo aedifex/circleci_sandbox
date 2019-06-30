@@ -1,3 +1,8 @@
+orbs:
+  artifactory: circleci/artifactory@1.0.0
+version: 2.1
+
+
 jobs:
   build:
     docker:
@@ -8,7 +13,4 @@ jobs:
       - artifactory/install
       - artifactory/configure
       - artifactory/build-integration
-      
-orbs:
-  artifactory: circleci/artifactory@1.0.0
-version: 2.1
+
