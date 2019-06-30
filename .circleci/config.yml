@@ -8,4 +8,4 @@ jobs:
       - run:
           name: Run Test Suite
           command: |
-            echo "Run extra tests?" $RUN_EXTRA_TESTS
+            echo "Run additional tests?" $RUN_EXTRA_TESTS
