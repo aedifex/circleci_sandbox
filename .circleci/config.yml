@@ -6,4 +6,4 @@ jobs:
     steps:
       - checkout
       - echo "tests"
-      - echo "Run extra tests?: " $RUN_EXTRA_TESTS
+      - echo "Run extra tests? " $RUN_EXTRA_TESTS
