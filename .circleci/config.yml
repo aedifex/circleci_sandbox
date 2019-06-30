@@ -5,20 +5,5 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - checkout
-      - run: sleep 360
-  test:
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - checkout
-      - run: echo "Hello, from test!"
-
-# protected branches
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build:
-          filters:
-            branches:
-              only: circle-test
+      - echo "tests"
+      - echo "Run extra tests?: " $RUN_EXTRA_TESTS
