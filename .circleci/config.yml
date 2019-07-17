@@ -14,4 +14,4 @@ jobs:
             ls
             pwd
       - store_artifacts:
-          path: ~/aedifex/test.html
+          path: /home/circleci/aedifex/tests.html
