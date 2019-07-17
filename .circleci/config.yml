@@ -11,6 +11,7 @@ jobs:
       - run:
           name: Run Test Suite
           command: |
-            echo "testing"
+            ls
+            pwd
       - store_artifacts:
           path: ~/aedifex/test.html
