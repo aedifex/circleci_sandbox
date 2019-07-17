@@ -3,9 +3,14 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.8
+    working_directory: ~/aedifex/
+    environment:
+      BASH_ENV: 'env_file'
     steps:
-      - checkout
+      # x- checkout
       - run:
           name: Run Test Suite
           command: |
-            echo "Run additional tests?" $RUN_EXTRA_TESTS
+            echo "testing"
+      - store_artifacts:
+          path: ~/aedifex/test.html
