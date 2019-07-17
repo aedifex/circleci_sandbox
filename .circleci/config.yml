@@ -7,7 +7,7 @@ jobs:
     environment:
       BASH_ENV: 'env_file'
     steps:
-      # x- checkout
+      - checkout
       - run:
           name: Run Test Suite
           command: |
