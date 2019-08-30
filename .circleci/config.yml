@@ -1,17 +1,10 @@
-version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.8
-    working_directory: ~/aedifex/
+      - image: buildpack-deps:trusty
     environment:
-      BASH_ENV: 'env_file'
+      FOO: bar
+    parallelism: 3
+    resource_class: large
     steps:
-      - checkout
-      - run:
-          name: Run Test Suite
-          command: |
-            ls
-            pwd
-      - store_artifacts:
-          path: /home/circleci/aedifex/tests.html
+      - run: echo "test"
