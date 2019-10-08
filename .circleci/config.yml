@@ -11,6 +11,7 @@ jobs:
             TEST=123
             echo $TEST
             export TEST
+            echo "export TEST=123" >> $BASH_ENV
       - run:
           name: Voila
           command: |
