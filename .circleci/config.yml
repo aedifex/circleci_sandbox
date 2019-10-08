@@ -1,10 +1,8 @@
-jobs:
-  build:
-    docker:
-      - image: buildpack-deps:trusty
-    environment:
-      FOO: bar
-    parallelism: 3
-    resource_class: xlarge
-    steps:
-      - run: echo "test"
+ version: 2.1
+  jobs:
+    build:
+      docker: 
+        - image: circleci/node:4.8.2
+      steps:
+        - checkout
+        - run: echo "hello world"
