@@ -10,7 +10,7 @@ jobs:
           command: |
             TEST=123
             echo $TEST
-            export $TEST
+            export TEST
       - run:
           name: Voila
           command: |
