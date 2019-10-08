@@ -5,4 +5,8 @@ jobs:
       - image: circleci/python:3.6.2
     steps:
       # - checkout
-      - run: env
+      - run:
+          name: HAHA
+          command: |
+            TEST=123
+            echo $TEST
