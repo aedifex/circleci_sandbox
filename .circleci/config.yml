@@ -1,18 +1,24 @@
-version: 2
+version: 2.1
+executors:
+  no-cache:
+    machine: true
+  with-cache:
+    machine:
+      docker_layer_caching: true
+
 jobs:
   build:
-    docker:
-      - image: circleci/python:3.6.2
+    parameters:
+      e: # e for executor
+        type: executor
+    executor: << parameters.e >>
     steps:
-      # - checkout
-      - run:
-          name: HAHA
-          command: |
-            TEST=123
-            echo $TEST
-            export TEST
-            echo "export TEST=123" >> $BASH_ENV
-      - run:
-          name: Voila
-          command: |
-            echo $TEST
+      - run: echo outside the executor
+
+workflows:
+  arbitrary-workflow-name:
+    jobs:
+      - build:
+          e: no-cache
+      - build:
+          e: with-cache
