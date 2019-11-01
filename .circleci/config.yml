@@ -11,12 +11,12 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - checkout
-      - run: $CIRCLE_STAGE
+      - run: echo $CIRCLE_STAGE
   test-acceptance:
     docker:
       - image: circleci/golang:1.8
     steps:
-      - run: $CIRCLE_STAGE
+      - run: echo $CIRCLE_STAGE
   deploy-prod:
     docker:
       - image: circleci/golang:1.8
