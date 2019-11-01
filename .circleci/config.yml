@@ -1,24 +1,36 @@
-version: 2.1
-executors:
-  no-cache:
-    machine: true
-  with-cache:
-    machine:
-      docker_layer_caching: true
-
+version: 2
 jobs:
   build:
-    parameters:
-      e: # e for executor
-        type: executor
-    executor: << parameters.e >>
+    docker:
+      - image: circleci/golang:1.8
     steps:
-      - run: echo outside the executor
+      - checkout
+      - run: echo $CIRCLE_STAGE
+  test:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - checkout
+      - run: $CIRCLE_STAGE
+  test-acceptance:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - run: $CIRCLE_STAGE
+  deploy-prod:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - run: $CIRCLE_STAGE
 
 workflows:
-  arbitrary-workflow-name:
+  version: 2
+  build_and_test:
     jobs:
-      - build:
-          e: no-cache
-      - build:
-          e: with-cache
+      - build
+      - test:
+          requires:
+            - build
+      - test-acceptance:
+          requires:
+            - test
