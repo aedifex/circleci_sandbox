@@ -33,7 +33,7 @@ jobs:
         command: npm install
     - save_cache:
         paths:
-          - ~/usr/local/lib/node_modules  # location depends on npm version
+          - ~/usr/local/lib/node_modules/  # location depends on npm version
         key: node-v2-{{ .Branch }}-{{ checksum "package-lock.json" }}
     - run:
         name: Test application
