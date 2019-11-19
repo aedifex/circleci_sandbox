@@ -30,7 +30,7 @@ jobs:
         command: sudo apt-get install git
     - run:
         name: Fetch dependencies
-        command: sudo npm install
+        command: npm install
     - save_cache:
         paths:
           - ~/usr/local/lib/node-modules  # location depends on npm version
