@@ -32,11 +32,6 @@ jobs:
         paths:
           - ~/usr/local/lib/node_modules  # location depends on npm version
         key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-    - run:
-        name: Test application - leverage test splitting
-        command: |
-          circleci tests glob "test/**/*.js" | circleci tests split > /tmp/test_files.txt
-          npm test $(cat /tmp/test_files.txt)
   
   code-linting:
     working_directory: ~/project
