@@ -1,5 +1,5 @@
 #!/bin/bash
 
-set -v
+set -x
 
 export TEST=$SLACK_WEBHOOK
