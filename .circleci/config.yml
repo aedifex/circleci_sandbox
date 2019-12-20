@@ -8,7 +8,7 @@ jobs:
     - checkout
     - run:
         name: Secrets
-        command: echo "$HEROKU_API_KEY"
+        command: echo "$SLACK_WEBHOOK"
 
 workflows:
   version: 2
