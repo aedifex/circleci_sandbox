@@ -7,28 +7,8 @@ jobs:
     steps:
     - checkout
     - run:
-        name: Update NPM
-        command: 'sudo npm install -g npm@latest'
-    - restore_cache:
-        keys:
-          # when lock file changes, use increasingly general patterns to restore cache
-          - node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          - node-v4-{{ .Branch }}-
-          - node-v4-
-    - run:
-        name: Update Git
-        command: sudo apt-get install git
-    - run:
-        name: Fetch dependencies
-        command: npm install
-    - save_cache:
-        paths:
-          - node_modules  # location depends on npm version
-        key: node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}
-    - run:
-        name: Test application
-        command: |
-          echo "Running tests!"
+        name: Secrets
+        command: echo "Hello World"
 
 workflows:
   version: 2
