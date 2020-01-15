@@ -1,9 +1,9 @@
 version: 2 # use version 2.0 of CircleCI
 jobs: # a basic unit of work in a run
   build: # runs not using `Workflows` must have a `build` job as entry point
-  parallelism: 4
     macos:  # indicate that we are using the macOS executor
       xcode: "10.0.0" # indicate our selected version of Xcode
+    parallelism: 4
     steps: # a series of commands to run
       - checkout  # pull down code from your version control system.
       - run:
