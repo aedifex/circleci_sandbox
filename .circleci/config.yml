@@ -1,0 +1,9 @@
+version: 2
+jobs:
+   build:
+     docker:
+       - image: circleci/ruby:latest
+     working_directory: ~/app
+     steps:
+       - checkout
+       - run: echo "dev/shm"
