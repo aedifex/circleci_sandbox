@@ -1,3 +1,10 @@
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build:
+          context: tmm
+
 version: 2
 jobs:
    build:
@@ -6,4 +13,4 @@ jobs:
      working_directory: ~/app
      steps:
        - checkout
-       - run: echo "dev/shm"
+       - run: echo "Hello, Context"
