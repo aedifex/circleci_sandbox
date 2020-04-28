@@ -3,7 +3,7 @@ workflows:
   build_and_test:
     jobs:
       - build:
-          context: tmm
+          context: TMM
 
 version: 2
 jobs:
