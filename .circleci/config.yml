@@ -10,11 +10,14 @@ workflows:
       - test:
           requires:
             - build
+          context: NODE-demo
       - hold:
           type: approval
           requires:
-            - build
             - test
+      - deploy:
+          requires:
+            - hold
 
 jobs:
   build:
