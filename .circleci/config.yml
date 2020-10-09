@@ -1,9 +1,41 @@
-version: 2
+version: 2.1
+
+orbs:
+  slack: circleci/slack@2.0.0
+
+workflows:
+  build_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - hold:
+          type: approval
+          requires:
+            - build
+            - test
+
 jobs:
-   build:
-     docker:
-       - image: circleci/ruby:latest
-     working_directory: ~/app
-     steps:
-       - checkout
-       - run: echo "dev/shm"
+  build:
+    machine: true
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run: echo "Hello, from Machine!"
+  
+  test:
+    machine: true
+    working_directory: ~/app
+    steps:
+      - run: echo "Hello from test!"
+      - slack/notify:
+          mentions: 'chris'
+          webhook: ${SLACK_WEBHOOK}
+          message: "The latest inventory is ready to ship, please review/approve ASAP! https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}"
+
+  deploy:
+    machine: true
+    working_directory: ~/app
+    steps:
+      - run: echo "Hello from deploy!"
