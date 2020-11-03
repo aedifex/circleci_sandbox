@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  slack: circleci/slack@2.0.0
-
 workflows:
   build_deploy:
     jobs:
