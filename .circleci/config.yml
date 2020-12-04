@@ -70,4 +70,10 @@ jobs:
       - checkout
       - run:
           command: |
-            echo "Hello, from from $hostname!"
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              curl -u ${CIRCLECI_TOKEN}: -X POST --header "Content-Type: application/json" -d '{
+                "parameters": {
+                  "deploy_staging": true
+                  }
+              }' https://circleci.com/api/v2/project/gh/aedifex/circleci_sandbox/pipeline
+            fi
