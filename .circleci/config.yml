@@ -27,10 +27,16 @@ workflows:
   deploy_staging:
     when: << pipeline.parameters.deploy_staging >>
     jobs:
-      - build
+      - deploy_terraform
+      - deploy:
+          requires:
+            - deploy_terraform
+      - perf_test:
+          requires:
+            - deploy
       - integration_tests_staging:
           requires:
-            - build
+            - perf_test
   deploy_prod:
     when: << pipeline.parameters.deploy_prod >>
     jobs:
@@ -55,6 +61,14 @@ jobs:
           command: |
             echo "Hello, from from $hostname!"
   deploy:
+    machine: true
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          command: |
+            echo "Hello, from from $hostname!"
+  perf_test:
     machine: true
     working_directory: ~/app
     steps:
