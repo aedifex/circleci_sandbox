@@ -11,6 +11,10 @@ parameters:
 workflows:
   version: 2
   dev_workflow:
+    when:
+      and:
+        - not: << pipeline.parameters.deploy_staging >>
+        - not: << pipeline.parameters.deploy_prod >>
     jobs:
       - deploy_terraform
       - build
