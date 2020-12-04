@@ -33,7 +33,6 @@ workflows:
 jobs:
   build:
     machine: true
-    resource_class: aedifex/runner-test
     working_directory: ~/app
     steps:
       - checkout
