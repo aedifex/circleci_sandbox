@@ -21,13 +21,16 @@ workflows:
       - deploy:
           requires:
             - build
-      - integration_tests:
+      - integration_tests_dev:
           requires:
             - deploy
   deploy_staging:
     when: << pipeline.parameters.deploy_staging >>
     jobs:
       - build
+      - integration_tests_staging:
+          requires:
+            - build
   deploy_prod:
     when: << pipeline.parameters.deploy_prod >>
     jobs:
@@ -67,17 +70,33 @@ jobs:
       - run:
           command: |
             echo "Hello, from from $hostname!"
-  integration_tests:
+  integration_tests_dev:
     machine: true
     working_directory: ~/app
     steps:
       - checkout
       - run:
+          name: "Trigger Stage workflow"
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               curl -u ${CIRCLECI_TOKEN}: -X POST --header "Content-Type: application/json" -d '{
                 "parameters": {
                   "deploy_staging": true
+                  }
+              }' https://circleci.com/api/v2/project/gh/aedifex/circleci_sandbox/pipeline
+            fi
+  integration_tests_staging:
+    machine: true
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: "Trigger Stage workflow"
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              curl -u ${CIRCLECI_TOKEN}: -X POST --header "Content-Type: application/json" -d '{
+                "parameters": {
+                  "deploy_prod": true
                   }
               }' https://circleci.com/api/v2/project/gh/aedifex/circleci_sandbox/pipeline
             fi
