@@ -1,14 +1,71 @@
 version: 2.1
 
+parameters:
+  deploy_staging:
+    type: boolean
+    default: false
+  deploy_prod:
+    type: boolean
+    default: false
+
 workflows:
-  build_deploy:
+  version: 2
+  dev_workflow:
+    jobs:
+      - deploy_terraform
+      - build
+      - deploy:
+          requires:
+            - build
+      - integration_tests:
+          requires:
+            - deploy
+  deploy_staging:
+    when: << pipeline.parameters.deploy_staging >>
     jobs:
       - build
+  deploy_prod:
+    when: << pipeline.parameters.deploy_prod >>
+    jobs:
+      - smoke_test
+
 
 jobs:
   build:
     machine: true
     resource_class: aedifex/runner-test
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          command: |
+            echo "Hello, from from $hostname!"
+  deploy_terraform:
+    machine: true
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          command: |
+            echo "Hello, from from $hostname!"
+  deploy:
+    machine: true
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          command: |
+            echo "Hello, from from $hostname!"
+  smoke_test:
+    machine: true
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          command: |
+            echo "Hello, from from $hostname!"
+  integration_tests:
+    machine: true
     working_directory: ~/app
     steps:
       - checkout
